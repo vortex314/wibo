@@ -51,8 +51,8 @@ void Sys::setNow(uint64_t n)
 
 void Sys::hostname(const char* hn)
 {
-    return;
-    LOGF("%s:%d",hn,strlen(hn));
+//    return;
+ //   LOGF("%s:%d",hn,strlen(hn));
     delay(100);
     strncpy(_hostname , hn,strlen(hn));
 }

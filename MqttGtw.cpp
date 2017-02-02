@@ -90,7 +90,7 @@ void MqttGtw::wakeup()
 	if ( write(wakeupPipe[1],"W",1) < 1 ) {
 		LOGF("Failed to write pipe: %s (%d)", strerror(errno), errno);
 	}
-	DEBUG(" wakeup ");
+//	DEBUG(" wakeup ");
 }
 //--------------------------------------------------------------------------------------------------------
 int MqttGtw::fd()

@@ -28,7 +28,7 @@ void UdpServer::init()
     _bindSocket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
 
     if(_listenFd < 0) {
-        LOGF("Cannot open socket" );
+        WARN("Cannot open socket" );
     }
     bzero((char*) &_localAddr, sizeof(_localAddr));
 
@@ -38,7 +38,7 @@ void UdpServer::init()
 
     //bind socket
     if(bind(_bindSocket, (struct sockaddr *)&_localAddr, sizeof(_localAddr)) < 0) {
-        LOGF("Cannot bind" );
+        WARN("Cannot bind" );
     }
 }
 
@@ -74,7 +74,7 @@ void UdpServer::setRemote(const char* host,uint16_t port)
     server = gethostbyname(host);
 
     if(server == NULL) {
-        LOGF("Host does not exist" );
+        WARN("Host does not exist" );
     }
 
     bzero((char *) &_remoteAddr, sizeof(_remoteAddr));
@@ -95,7 +95,7 @@ void UdpServer::send(Bytes& bytes)
 
 
     if ((s=socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP))==-1) {
-        LOGF("socket create failed ");
+        WARN("socket create failed ");
         return;
     }
     /*
@@ -109,7 +109,7 @@ void UdpServer::send(Bytes& bytes)
     */
 
     if (sendto(s, bytes.data(), bytes.length(), 0,(sockaddr*) &_remoteAddr, slen)==-1)
-        LOGF("sendto() failed");
+        WARN("sendto() failed");
 
     close(s);
 }
@@ -129,13 +129,13 @@ void UdpServer::send(const char* host,uint16_t port, Bytes& data)
     _listenFd = socket(AF_INET, SOCK_STREAM, 0);
 
     if(_listenFd < 0) {
-        LOGF( "Cannot open socket" );
+        WARN( "Cannot open socket" );
     }
 
     server = gethostbyname(host);
 
     if(server == NULL) {
-        LOGF("Host does not exist" );
+        WARN("Host does not exist" );
     }
 
     bzero((char *) &svrAdd, sizeof(svrAdd));
@@ -148,7 +148,7 @@ void UdpServer::send(const char* host,uint16_t port, Bytes& data)
     int checker = connect(_listenFd,(struct sockaddr *) &svrAdd, sizeof(svrAdd));
 
     if (checker < 0) {
-        LOGF("Cannot connect!" );
+        WARN("Cannot connect!" );
     }
 
 
